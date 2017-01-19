@@ -12,12 +12,12 @@ using namespace cv;
 using namespace std;
 
 Mat src3; Mat src3_gray;
-int thresh = 100;
-int max_thresh = 255;
-RNG rng(12345);
+int thresh3 = 100;
+int max_thresh3 = 255;
+RNG rng2(12345);
 
 /// Function header
-void thresh_callback(int, void* );
+void thresh_callback3(int, void* );
 
 /**
  * @function main
@@ -41,8 +41,8 @@ int ex24()
   namedWindow( source_window, WINDOW_AUTOSIZE );
   imshow( source_window, src3 );
 
-  createTrackbar( " Canny thresh:", "Source", &thresh, max_thresh, thresh_callback );
-  thresh_callback( 0, 0 );
+  createTrackbar( " Canny thresh:", "Source", &thresh3, max_thresh3, thresh_callback3 );
+  thresh_callback3( 0, 0 );
 
   waitKey(0);
   return(0);
@@ -51,14 +51,14 @@ int ex24()
 /**
  * @function thresh_callback
  */
-void thresh_callback(int, void* )
+void thresh_callback3(int, void* )
 {
   Mat canny_output;
   vector<vector<Point> > contours;
   vector<Vec4i> hierarchy;
 
   /// Detect edges using canny
-  Canny( src3_gray, canny_output, thresh, thresh*2, 3 );
+  Canny( src3_gray, canny_output, thresh3, thresh3*2, 3 );
   /// Find contours
   findContours( canny_output, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE, Point(0, 0) );
 
@@ -66,7 +66,7 @@ void thresh_callback(int, void* )
   Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
   for( size_t i = 0; i< contours.size(); i++ )
      {
-       Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+       Scalar color = Scalar( rng2.uniform(0, 255), rng2.uniform(0,255), rng2.uniform(0,255) );
        drawContours( drawing, contours, (int)i, color, 2, 16, hierarchy, 0, Point() );
      }
 

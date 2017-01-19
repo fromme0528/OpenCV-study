@@ -14,7 +14,9 @@ using namespace std;
 
 int ex21(){
 
-	VideoCapture cap("RedObject.mp4");
+//	VideoCapture cap("RedObject.mp4");
+	VideoCapture cap(0);
+
 
 	if(!cap.isOpened()){
 		cout << "Error : Cannot open the video file.."<<endl;
@@ -64,10 +66,12 @@ int ex21(){
 
 		inRange(imgHSV, Scalar(iLowH,iLowS,iLowV), Scalar(iHighH,iHighS, iHighV),imgThresholded); //threshhold the image
 
-		//morphological opening(remove small objects from the foreground
+		//Morphological Opening(remove small objects from the foreground
 		erode (imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE,Size(5,5)));
 		dilate (imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE,Size(5,5)));
 
+
+		//Morphological Closing
 		dilate (imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE,Size(5,5)));
 		erode (imgThresholded, imgThresholded, getStructuringElement(MORPH_ELLIPSE,Size(5,5)));
 

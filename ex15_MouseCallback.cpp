@@ -11,7 +11,7 @@ How to Detect Mouse Clicks and Moves
 using namespace cv;
 using namespace std;
 
-Mat src;
+Mat src2;
 
 void MyCallbackForBrightness(int iValueForBrightness, void *userData){
 
@@ -23,7 +23,7 @@ void MyCallbackForBrightness(int iValueForBrightness, void *userData){
 
 	cout << "MyCallbackForBrightness : Contrast=" << dContrast << ", Brightness=" <<iBrightness <<endl;
 
-	src.convertTo(dst,-1,dContrast,iBrightness);
+	src2.convertTo(dst,-1,dContrast,iBrightness);
 
 	imshow("My Window",dst);
 
@@ -39,7 +39,7 @@ void MyCallbackForContrast(int iValueForContrast, void *userData){
 
 	cout << "MyCallbackForContrast: Contrast=" << dContrast << ", Brightness=" <<iBrightness <<endl;
 
-	src.convertTo(dst,-1,dContrast,iBrightness);
+	src2.convertTo(dst,-1,dContrast,iBrightness);
 
 	imshow("My Window",dst);
 }
@@ -47,9 +47,9 @@ void MyCallbackForContrast(int iValueForContrast, void *userData){
 
 int ex15(){
 
-	src = imread("testimage.jpg");
+	src2 = imread("testimage.jpg");
 
-	if(!src.data){
+	if(!src2.data){
 		cout << "Error : image cannot be loaded.."<<endl;
 		return -1;
 	}
@@ -60,11 +60,9 @@ int ex15(){
 	int iValueForContrast = 50;
 
 	createTrackbar("Brightness","My Window",&iValueForBrightness,100,MyCallbackForBrightness,&iValueForContrast);
-
 	createTrackbar("Contrast","My Window",&iValueForContrast,100,MyCallbackForContrast,&iValueForBrightness);
 
-
-	imshow("My Window",src);
+	imshow("My Window",src2);
 
 	waitKey(0);
 
